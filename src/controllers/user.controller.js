@@ -9,6 +9,12 @@ const algorithm = {
 
 const token = (result) => jwt.sign(result, secret, algorithm);
 
+const getAllUsers = async (req, res) => {
+  const result = await userService.getAllUsers();
+  const { status, message } = result;
+  return res.status(mapStatusHTTP(status)).json(message);
+};
+
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   const result = await userService.createUser(displayName, email, password, image);
@@ -26,5 +32,6 @@ const createUser = async (req, res) => {
 };
 
 module.exports = {
+  getAllUsers,
   createUser,
 };
