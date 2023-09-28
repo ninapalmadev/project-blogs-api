@@ -15,6 +15,14 @@ const getAllUsers = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(message);
 };
 
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  const result = await userService.getUserById(id);
+  const { status, message } = result;
+  if (status === 'NOT_FOUND') return res.status(mapStatusHTTP(status)).json({ message });
+  return res.status(mapStatusHTTP(status)).json(message);
+};
+
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   const result = await userService.createUser(displayName, email, password, image);
@@ -33,5 +41,6 @@ const createUser = async (req, res) => {
 
 module.exports = {
   getAllUsers,
+  getUserById,
   createUser,
 };

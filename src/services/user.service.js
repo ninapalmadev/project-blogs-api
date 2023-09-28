@@ -8,6 +8,16 @@ const getAllUsers = async () => {
   return { status: 'SUCCESSFUL', message: users };
 };
 
+const getUserById = async (id) => {
+  const user = await User.findOne({ where: { id }, attributes: { exclude: ['password'] } });
+
+  if (!user) {
+    return ({ status: 'NOT_FOUND', message: 'User does not exist' });
+  }
+
+  return { status: 'SUCCESSFUL', message: user };
+};
+
 const createUser = async (displayName, email, password, image) => {
   const user = await User.findOne({ where: { email } });
 
@@ -21,5 +31,6 @@ const createUser = async (displayName, email, password, image) => {
 
 module.exports = {
   getAllUsers,
+  getUserById,
   createUser,
 };

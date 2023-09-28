@@ -10,6 +10,7 @@ const {
 const tokenMiddleware = require('../middlewares/tokenMiddleware');
 
 router.get('/', tokenMiddleware, userController.getAllUsers);
+router.get('/:id', tokenMiddleware, userController.getUserById);
 router.post('/', displayNameValidate, passwordValidate, emailValidate, userController.createUser);
 
 module.exports = router;
