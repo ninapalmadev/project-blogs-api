@@ -12,7 +12,17 @@ const createCategory = async (name) => {
   return { status: 'CREATED', message: create.dataValues };
 };
 
+const checkCategory = async ({ name }) => {
+  if (!name || name.lenght === 0) {
+    return {
+      error: { message: '"name" is required' },
+      code: 400,
+    }; 
+  }
+};
+
 module.exports = {
   getAllCategories,
   createCategory,
+  checkCategory,
 };
